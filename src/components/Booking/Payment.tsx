@@ -4,18 +4,18 @@ interface selected {
   selectedLocation:Locations;
 }
  
-const Payment:React.FC<selected> = ( {selectedLocation} ) => {
+const Payment:React.FC<selected> = () => {
   
   return (
-    <div className="w-full h-screen">
-      <h1 className="roboto-bold text-3xl text-center">Confirmation and Payment</h1>
+    <div className="w-full h-full">
+      <h1 className="roboto-bold text-3xl text-center">Confirm and Pay</h1>
 
-      <div className="w-[70%] mx-auto flex flex-col mt-5 lg:flex-row lg:justify-between">
-        <div className="lg:w-[58%] p-5 border-2 border-brandBlack rounded-2xl">
+      <div className="w-[80%] md:w-[50%] lg:w-[80%] xl:w-[70%] mx-auto flex flex-col lg:flex-row lg:justify-between mt-3">
+        <div className="lg:w-[58%] p-5 border-2 border-brandBlack rounded-2xl mt-5">
           <h1 className="roboto-bold text-2xl">Summary</h1>
         </div>
 
-        <div className="lg:w-[38%] p-5 border-2 border-brandBlack rounded-2xl">
+        <div className="lg:w-[38%] p-5 border-2 border-brandBlack rounded-2xl mt-5">
           <h1 className="roboto-bold text-2xl">Player Details</h1>
           <p className="text-base mt-2">Enter your information below so we can contact you in case of sudden changes.</p>
 

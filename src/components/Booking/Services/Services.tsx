@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import court from "../../../assets/booking/court.png";
 import studio from "../../../assets/booking/studio.jpeg";
 import Modal from "../Widgets/Modal";
+import { fadeIn } from "../../../variants";
+import { motion } from 'framer-motion';
 
 const Services = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -74,8 +76,20 @@ const Services = () => {
 
   return (
     <div className="w-full flex flex-col xl:px-20">
-      <h1 className="roboto-bold text-3xl text-center">Select a Service</h1>
-      <div className="w-[70%] mx-auto flex flex-wrap justify-between">
+      <motion.div
+      variants={fadeIn("up", 0.2)}
+      initial="hidden"
+      whileInView={"show"}
+      viewport={{once:false, amount:0.5}}>
+        <h1 className="roboto-bold text-3xl text-center">Select a Service</h1>
+      </motion.div>
+      
+      <motion.div
+      variants={fadeIn("down", 0.2)}
+      initial="hidden"
+      whileInView={"show"}
+      viewport={{once:false, amount:0.2}}
+      className="w-[80%] mx-auto flex flex-col justify-center items-center md:w-full lg:flex-row lg:w-[80%] lg:justify-between xl:w-[70%]">
         {services.map(service => (
           <div key={service.id} className="rounded-lg mt-10 hover:-translate-y-4 md:w-[48%]">
             <img src={service.img} className="w-[100%] rounded-xl max-h-48 object-cover" />
@@ -93,7 +107,7 @@ const Services = () => {
             </div>
           </div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Modal */}
       {modalContent && (

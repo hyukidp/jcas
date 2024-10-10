@@ -2,7 +2,7 @@ const Schedule = () => {
   return (
     <div className="w-full flex flex-col items-center">
     <h1>Daily Schedule</h1>
-    <div className="w-2/3 flex flex-row justify-between mt-3">
+    <div className="w-full md:w-2/3 flex flex-row justify-between mt-3">
       <div className="flex flex-col">
         <h1>Monday</h1>
         <h1>Tuesday</h1>

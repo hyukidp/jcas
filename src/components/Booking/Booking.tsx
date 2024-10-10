@@ -17,7 +17,7 @@ const Booking = () => {
   return (
     <div className="h-full w-full mt-32">
       <div className="w-full flex flex-col items-center">
-        <ul className="steps w-1/2">
+        <ul className="steps w-[90%] md:w-1/2">
             {steps.map((step, index) => (
                 <li
                     key={index}

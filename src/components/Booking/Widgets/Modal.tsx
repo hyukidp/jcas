@@ -35,13 +35,13 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, id, title, price, descri
            tabIndex={-1}
            aria-labelledby="exampleModalLabel"
            aria-hidden="false">
-        <div className="pointer-events-none relative w-auto translate-y-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[600px] transform-none opacity-100">
+        <div className="pointer-events-none relative w-auto translate-y-0 transition-all duration-300 ease-in-out max-w-[90%] md:max-w-[600px] transform-none opacity-100">
           <div className="pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-brandWhite bg-clip-padding text-current shadow-4 outline-none dark:bg-surface-dark max-h-[80vh] overflow-y-auto py-7">
             <div className="relative flex-auto px-4">
               {Carousel}
             </div>
 
-            <div className="px-7">
+            <div className="px-5 md:px-7">
               <h5 className="text-xl font-medium leading-normal text-surface dark:text-white mt-4"
                   id="exampleModalLabel">
                 {title}
