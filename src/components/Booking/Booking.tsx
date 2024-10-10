@@ -11,8 +11,31 @@ const steps = [
     { label: 'Step 4', className: 'step-info', component: <Payment/> },
 ];
 
+
+
 const Booking = () => {
   const [currentStep, setCurrentStep] = useState(0);
+
+  const renderSteps = () => {
+    switch (currentStep) {
+      case 0:
+        //location 
+        return <Location setCurrentStep={setCurrentStep} />
+        break;
+      case 1:
+        return <Services setCurrentStep={setCurrentStep} />
+        //service
+        break;
+      case 2:
+        //date pick component
+        return <Date setCurrentStep={setCurrentStep}/> 
+        break;
+      case 3:
+        //payment / checkout
+        return <Date setCurrentStep={setCurrentStep}/> 
+        break;
+    }
+  }
 
   return (
     <div className="h-full w-full mt-32">
@@ -28,7 +51,7 @@ const Booking = () => {
             ))}
         </ul>
         <div className="w-full mt-8">
-            {steps[currentStep].component}
+              {renderSteps()}
         </div>
       </div>
     </div>

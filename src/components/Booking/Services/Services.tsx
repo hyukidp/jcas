@@ -1,16 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import court from "../../../assets/booking/court.png";
 import studio from "../../../assets/booking/studio.jpeg";
 import Modal from "../Widgets/Modal";
 import { fadeIn } from "../../../variants";
 import { motion } from 'framer-motion';
 
-const Services = () => {
+
+interface ServiceProps {
+  setCurrentStep: (step: number) => void; // Specify the function type
+}
+
+const Services: React.FC<ServiceProps> = ({setCurrentStep}) => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<{ id: number; title: string; price:number; description: string; note: string; } | null>(null);
   const courtRef = useRef<HTMLParagraphElement | null>(null);
   const studioRef = useRef<HTMLParagraphElement | null>(null);
   const charLimit = 119;
+
+  
 
   // Service Data
   const services = [

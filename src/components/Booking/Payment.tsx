@@ -1,10 +1,11 @@
+import React from "react";
 import { Locations } from "../../types/types"
 
-interface selected {
-  selectedLocation:Locations;
+interface PaymentProps {
+  setCurrentStep: (step: number) => void; // Specify the function type
 }
  
-const Payment:React.FC<selected> = () => {
+const Payment:React.FC<PaymentProps> = ({setCurrentStep}) => {
   
   return (
     <div className="w-full h-full">
