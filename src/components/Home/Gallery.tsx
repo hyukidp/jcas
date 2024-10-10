@@ -22,6 +22,7 @@ import img16 from "../../assets/carousel/galleryimg20.jpg"
 import img17 from "../../assets/carousel/galleryimg21.jpg"
 
 const Gallery = () => {
+    // Carousel setting
     const settings = {
         dots: true,
         infinite: true,
@@ -75,6 +76,7 @@ const Gallery = () => {
             </h1>
         </motion.div>
 
+        {/* Carousel */}
         <div className='mt-5 md:mt-10'>
         <Slider {...settings}>
             <div className="slick-slide">

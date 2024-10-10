@@ -7,16 +7,18 @@ import img3 from "../../../assets/studiocarousel/img3.jpg"
 
 
 const StudioCarousel = () => {
-    const settings = {
-        dots: true,
-        arrows: false,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true, 
-        autoplaySpeed: 2500,
-    };
+
+  // Carousel setting
+  const settings = {
+    dots: true,
+    arrows: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true, 
+    autoplaySpeed: 2500,
+  };
 
   return (
     <div className='w-full max-h-100 object-cover'>
