@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.sx-react-calendar-wrapper {
+    width: 1200px;
+    max-width: 100vw;
+    height: 800px;
+    max-height: 90vh;
+}
+
+.roboto-black-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 900;
+    font-style: italic;
+}
+
+.roboto-regular {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.roboto-bold {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.slick-list {
+    margin: 0px; 
+}
+
+.slick-slide {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    padding: 0px 5px;
+}
+
+.steps .step-primary + .step-primary:before, .steps .step-primary:after{
+    background-color: #D23939;
+    color: #FFFFFF;
+}
+
+.steps .step-secondary + .step-secondary:before, .steps .step-secondary:after{
+    background-color: #ffc12f;
+    color: #FFFFFF;
+}
+
+.steps .step-accent + .step-accent:before, .steps .step-accent:after{
+    background-color: #3767A4;
+    color: #FFFFFF;
+}
+
+.steps .step-info:after{
+    background-color: #2F6C48;
+    color: #FFFFFF;
+}
