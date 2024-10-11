@@ -9,7 +9,9 @@ interface LocationContextType {
 
 const LocationContext = createContext<LocationContextType | undefined>(undefined);
 
-
+/**
+ * Custom Hooks for LocationContext : useContext
+ */
 export const useLocation = () => {
     const context = useContext(LocationContext);
     if (!context) {
@@ -23,6 +25,10 @@ interface LocationProviderProps {
   }
 
 
+/**
+ * A React functional component allows us to use `useState` to manage and update the value of `selectedLocation`. 
+ * { children } :  all prop allows all props passed to `LocationContext.Provider` to be inherited by its children
+ */
 export const LocationProvider: React.FC<LocationProviderProps> = ({ children }) => {
     const [selectedLocation, setSelectedLocation] = useState<Location | null>(null); //useState for the selectedLocation
   
