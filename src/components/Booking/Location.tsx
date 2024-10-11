@@ -1,23 +1,10 @@
-import  React, { useState } from "react";
-import bulacan from "../../assets/aboutmv.jpg";
+import  React, { useContext, useState } from "react";
 import { Locations } from "../../types/types";
 import { fadeIn } from "../../variants";
 import { motion } from 'framer-motion';
+import { LocationContext } from "./Contexts/LocationContext";
+import { SelectedLocationContext } from "../Contexts/LocationContext";
 
-const storelocations: Locations[] = [
-  {
-    id: 1,
-    image: bulacan,
-    name: "JCAS Bulacan",
-    address: "Malolos, Bulacan",
-  },
-  {
-    id: 2,
-    image: bulacan,
-    name: "JCAS Cavite",
-    address: "Dasmarinas, Cavite",
-  },
-];
 
 //declare LocationProps Typescript to set setCurrentstep 
 interface LocationProps {
@@ -25,11 +12,12 @@ interface LocationProps {
 }
 
 const Location: React.FC<LocationProps>= ({setCurrentStep}) => {
-  const [selectedLocation, setSelectedLocation] = useState<Locations>();
+  const storelocations = useContext(LocationContext) || [];
+  const selectedLocation = useContext(SelectedLocationContext);
+
 
   const handleSelect = (location: Locations) => {
-    setSelectedLocation(location);
-    console.log(location);
+    selectedLocation(location);
     setCurrentStep(1);
   };
 

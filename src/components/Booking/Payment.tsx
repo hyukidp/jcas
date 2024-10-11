@@ -1,5 +1,5 @@
 import React from "react";
-import { Locations } from "../../types/types"
+import { LocationContext } from "./Contexts/LocationContext";
 
 interface PaymentProps {
   setCurrentStep: (step: number) => void; // Specify the function type
@@ -14,6 +14,7 @@ const Payment:React.FC<PaymentProps> = ({setCurrentStep}) => {
       <div className="w-[80%] md:w-[50%] lg:w-[80%] xl:w-[70%] mx-auto flex flex-col lg:flex-row lg:justify-between mt-3">
         <div className="lg:w-[58%] p-5 border-2 border-brandBlack rounded-2xl mt-5">
           <h1 className="roboto-bold text-2xl">Summary</h1>
+
         </div>
 
         <div className="lg:w-[38%] p-5 border-2 border-brandBlack rounded-2xl mt-5">

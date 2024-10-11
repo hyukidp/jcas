@@ -3,6 +3,24 @@ import Location from './Location';
 import Services from './Services/Services';
 import Date from './Date';
 import Payment from './Payment';
+import { Locations } from '../../types/types';
+import bulacan from "../../assets/aboutmv.jpg";
+import { LocationContext } from './Contexts/LocationContext';
+
+const storelocations: Locations[] = [
+  {
+    id: 1,
+    image: bulacan,
+    name: "JCAS Bulacan",
+    address: "Malolos, Bulacan",
+  },
+  {
+    id: 2,
+    image: bulacan,
+    name: "JCAS Cavite",
+    address: "Dasmarinas, Cavite",
+  },
+];
 
 const steps = [
     { label: 'Step 1', className: 'step-primary' },
@@ -18,8 +36,9 @@ const Booking = () => {
     switch (currentStep) {
       case 0:
         //location 
-        return <Location setCurrentStep={setCurrentStep} />
-        break;
+        return <LocationContext.Provider value={storelocations}>
+                  <Location setCurrentStep={setCurrentStep} />
+               </LocationContext.Provider>
       case 1:
         return <Services setCurrentStep={setCurrentStep} />
         //service
