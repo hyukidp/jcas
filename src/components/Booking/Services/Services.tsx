@@ -5,6 +5,7 @@ import Modal from "../Widgets/Modal";
 import { Services } from "../../../types/types";
 import { fadeIn } from "../../../variants";
 import { motion } from 'framer-motion';
+import { useLocation } from "../../../contexts/LocationContext";
 
 
 interface ServiceProps {
@@ -18,6 +19,10 @@ const Services: React.FC<ServiceProps> = ({setCurrentStep}) => {
   const courtRef = useRef<HTMLParagraphElement | null>(null);
   const studioRef = useRef<HTMLParagraphElement | null>(null);
   const charLimit = 119;
+
+
+  const { selectedLocation } = useLocation(); //declare the locationContext to display selected location
+
   
   // Service Data
   const services:Services[] = [
@@ -91,6 +96,15 @@ const Services: React.FC<ServiceProps> = ({setCurrentStep}) => {
 
   return (
     <div className="w-full flex flex-col xl:px-20">
+
+      <h2>Selected Location</h2>
+      {/* display selectedLocation : Context */}
+      {selectedLocation ? (
+        <p>Service available in {selectedLocation.name}</p>
+      ) : (
+        <p>Please select a location to see available services.</p>
+      )}
+      
       <motion.div
       variants={fadeIn("up", 0.2)}
       initial="hidden"

@@ -3,7 +3,7 @@ import { Locations } from "../../types/types";
 import { fadeIn } from "../../variants";
 import { motion } from 'framer-motion';
 import { LocationContext } from "./Contexts/LocationContext";
-import { SelectedLocationContext } from "../Contexts/LocationContext";
+import { useLocation } from "../../contexts/LocationContext";
 
 
 //declare LocationProps Typescript to set setCurrentstep 
@@ -13,11 +13,11 @@ interface LocationProps {
 
 const Location: React.FC<LocationProps>= ({setCurrentStep}) => {
   const storelocations = useContext(LocationContext) || [];
-  const selectedLocation = useContext(SelectedLocationContext);
+  const { selectedLocation, setSelectedLocation } = useLocation();
 
 
   const handleSelect = (location: Locations) => {
-    selectedLocation(location);
+    setSelectedLocation(location); //update the useLocation Context
     setCurrentStep(1);
   };
 
