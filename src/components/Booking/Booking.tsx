@@ -40,8 +40,8 @@ const Booking = () => {
                   <Location setCurrentStep={setCurrentStep} />
                </LocationContext.Provider>
       case 1:
-        return <Services setCurrentStep={setCurrentStep} />
         //service
+        return <Services setCurrentStep={setCurrentStep} />
         break;
       case 2:
         //date pick component

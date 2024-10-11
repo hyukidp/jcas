@@ -5,7 +5,7 @@ interface PaymentProps {
   setCurrentStep: (step: number) => void; // Specify the function type
 }
  
-const Payment:React.FC<PaymentProps> = ({setCurrentStep}) => {
+const Payment:React.FC<PaymentProps> = () => {
   
   return (
     <div className="w-full h-full">
