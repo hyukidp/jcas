@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import court from "../../../assets/booking/court.png";
 import studio from "../../../assets/booking/studio.jpeg";
 import Modal from "../Widgets/Modal";
+import { Services } from "../../../types/types";
 import { fadeIn } from "../../../variants";
 import { motion } from 'framer-motion';
 
@@ -11,16 +12,15 @@ interface ServiceProps {
 }
 
 const Services: React.FC<ServiceProps> = ({setCurrentStep}) => {
+  const [selectedService, setSelectedService] = useState<Services>();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<{ id: number; title: string; price:number; description: string; note: string; } | null>(null);
   const courtRef = useRef<HTMLParagraphElement | null>(null);
   const studioRef = useRef<HTMLParagraphElement | null>(null);
   const charLimit = 119;
-
   
-
   // Service Data
-  const services = [
+  const services:Services[] = [
     {
       id: 1,
       title: "Court Rental",
@@ -81,6 +81,14 @@ const Services: React.FC<ServiceProps> = ({setCurrentStep}) => {
     }
   }, []);
 
+
+  const handleSelcectedService = (service: Services) => {
+    setSelectedService(service);
+    console.log(service);
+    setCurrentStep(2);
+  }
+
+
   return (
     <div className="w-full flex flex-col xl:px-20">
       <motion.div
@@ -97,7 +105,7 @@ const Services: React.FC<ServiceProps> = ({setCurrentStep}) => {
       whileInView={"show"}
       viewport={{once:false, amount:0.2}}
       className="w-[80%] mx-auto flex flex-col justify-center items-center md:w-full lg:flex-row lg:w-[80%] lg:justify-between xl:w-[70%]">
-        {services.map(service => (
+        {services.map((service:Services) => (
           <div key={service.id} className="rounded-lg mt-10 hover:-translate-y-4 md:w-[48%]">
             <img src={service.img} className="w-[100%] rounded-xl max-h-48 object-cover" />
             <h1 className="roboto-bold text-2xl mt-4">{service.title}</h1>
@@ -110,7 +118,7 @@ const Services: React.FC<ServiceProps> = ({setCurrentStep}) => {
               <h1 className="roboto-bold text-brandBlack">PHP {service.price}</h1>
             </div>
             <div className="flex flex-col mt-3">
-              <button className="w-full bg-brandBlue text-brandWhite py-2 mt-2 font-semibold rounded-lg">Select</button>
+              <button onClick={() => handleSelcectedService(service)} className="w-full bg-brandBlue text-brandWhite py-2 mt-2 font-semibold rounded-lg">Select</button>
             </div>
           </div>
         ))}

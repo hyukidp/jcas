@@ -30,9 +30,8 @@ const Location: React.FC<LocationProps>= ({setCurrentStep}) => {
   const handleSelect = (location: Locations) => {
     setSelectedLocation(location);
     console.log(location);
-    setCurrentStep(1)
+    setCurrentStep(1);
   };
-
 
   return (
     <div className="w-full flex flex-col">
