@@ -1,29 +1,33 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import court from "../../../assets/booking/court.png";
 import studio from "../../../assets/booking/studio.jpeg";
 import Modal from "../Widgets/Modal";
-import { Services } from "../../../types/types";
+import { Service } from "../../../interfaces/Service"
 import { fadeIn } from "../../../variants";
 import { motion } from 'framer-motion';
-
+import { useLocation } from "../../../contexts/LocationContext";
+import { useService } from "../../../contexts/ServiceContext"
 
 interface ServiceProps {
   setCurrentStep: (step: number) => void; // Specify the function type
 }
 
 const Services: React.FC<ServiceProps> = ({setCurrentStep}) => {
-  const [selectedService, setSelectedService] = useState<Services>();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<{ id: number; title: string; price:number; description: string; note: string; } | null>(null);
   const courtRef = useRef<HTMLParagraphElement | null>(null);
   const studioRef = useRef<HTMLParagraphElement | null>(null);
   const charLimit = 119;
+  const { selectedServices, setSelectedServices } = useService();
+  const { selectedLocation } = useLocation(); //declare the locationContext to display selected location
+
   
   // Service Data
-  const services:Services[] = [
+  const services:Service[] = [
     {
       id: 1,
       title: "Court Rental",
+      hour: 1,
       description: "Court Rental service for Badminton Court. Our courts are equipped with Taraflex flooring. Enjoy badminton with your friends or family, and book with us now!",
       note: "Our rate includes a PHP 15.00 online processing fee.",
       price: 320.00,
@@ -32,6 +36,7 @@ const Services: React.FC<ServiceProps> = ({setCurrentStep}) => {
     {
       id: 2,
       title: "Studio Rental",
+      hour: 1,
       description: "Our studio is perfect for dance, classes, and workshops. The rent comes with lights, speakers, and fans. Our team ensures that you have a convenient and comfortable space, allowing you to focus on your activity without any interruptions.",
       note: "Our rate includes a PHP 15.00 online processing fee and excludes air conditioning and miscellaneous equipment usage.",
       price: 1015.00,
@@ -82,15 +87,20 @@ const Services: React.FC<ServiceProps> = ({setCurrentStep}) => {
   }, []);
 
 
-  const handleSelcectedService = (service: Services) => {
-    setSelectedService(service);
-    console.log(service);
+  const handleSelcectedService = (service: Service) => {
+    setSelectedServices(service);
     setCurrentStep(2);
   }
 
-
   return (
     <div className="w-full flex flex-col xl:px-20">
+
+      {/* {selectedLocation ? (
+        <p>Service available in {selectedLocation.name}</p>
+      ) : (
+        <p>Please select a location to see available services.</p>
+      )} */}
+      
       <motion.div
       variants={fadeIn("up", 0.2)}
       initial="hidden"
@@ -105,7 +115,7 @@ const Services: React.FC<ServiceProps> = ({setCurrentStep}) => {
       whileInView={"show"}
       viewport={{once:false, amount:0.2}}
       className="w-[80%] mx-auto flex flex-col justify-center items-center md:w-full lg:flex-row lg:w-[80%] lg:justify-between xl:w-[70%]">
-        {services.map((service:Services) => (
+        {services.map((service:Service) => (
           <div key={service.id} className="rounded-lg mt-10 hover:-translate-y-4 md:w-[48%]">
             <img src={service.img} className="w-[100%] rounded-xl max-h-48 object-cover" />
             <h1 className="roboto-bold text-2xl mt-4">{service.title}</h1>
@@ -114,8 +124,8 @@ const Services: React.FC<ServiceProps> = ({setCurrentStep}) => {
             </p>
             <button onClick={() => readMore(service.id)} className="text-brandGreen roboto-bold ml-2">Read more</button>
             <div className="flex justify-between mt-4">
-              <h1 className="roboto-bold">1 hour</h1>
-              <h1 className="roboto-bold text-brandBlack">PHP {service.price}</h1>
+              <h1 className="roboto-bold">{service.hour} hr</h1>
+              <h1 className="roboto-bold text-brandBlack">₱{service.price}</h1>
             </div>
             <div className="flex flex-col mt-3">
               <button onClick={() => handleSelcectedService(service)} className="w-full bg-brandBlue text-brandWhite py-2 mt-2 font-semibold rounded-lg">Select</button>
