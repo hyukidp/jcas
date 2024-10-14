@@ -15,6 +15,7 @@ const Payment: React.FC<PaymentProps> = ({ setCurrentStep }) => {
     services.reduce((acc, service) => acc + service.price, 0)
   );
 
+  // Add service button
   const handleAddService = () => {
     setCurrentStep(1);
   };
@@ -68,15 +69,16 @@ const Payment: React.FC<PaymentProps> = ({ setCurrentStep }) => {
           <h1 className="roboto-bold text-2xl">Summary</h1>
           {selectedLocation ? (
             <div>
-              <section className="flex">
-                <div className="w-[250px] h-[100px] max-w-[150px] object-cover overflow-hidden mr-5">
-                  {selectedLocation.image}
-                </div>
+              <section className="flex mt-5">
+              <div className="w-[120px] h-[70px] overflow-hidden mr-3">
+                <img src={selectedLocation.image} className="w-full h-full object-cover rounded-md" />
+              </div>
 
-                <div>
-                  <h1>{selectedLocation.name}</h1>
-                  <p>{selectedLocation.address}</p>
-                </div>
+              <div>
+                <h1 className="roboto-bold text-base">{selectedLocation.name}</h1>
+                <p className="roboto-regular text-base">{selectedLocation.address}</p>
+                <p className="roboto-regular text-base">{selectedLocation.country}</p>
+              </div>
               </section>
             </div>
           ) : (
@@ -86,7 +88,7 @@ const Payment: React.FC<PaymentProps> = ({ setCurrentStep }) => {
           {services.length > 0 ? (
             <div className="h-full">
               {services.map((service) => (
-                <div key={service.id} className="mt-2">
+                <div key={service.id} className="mt-3">
                   <h1 className="roboto-bold text-base">{service.title}</h1>
                   <div className="flex justify-between pl-3">
                     <p className="roboto-regular text-base mt-1">{service.hour} hour(s)</p>
@@ -110,7 +112,7 @@ const Payment: React.FC<PaymentProps> = ({ setCurrentStep }) => {
                   </div>
                 </div>
               ))}
-              <div className="flex justify-between mt-5 border-t-2 border-brandBlack pt-2">
+              <div className="flex justify-between mt-4 border-t-2 border-brandBlack pt-2">
                 <p className="roboto-bold text-xl">Total Price:</p>
                 <p className="roboto-bold text-xl">₱{totalPrice}</p>
               </div>

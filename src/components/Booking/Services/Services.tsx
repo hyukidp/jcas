@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useContext } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import court from "../../../assets/booking/court.png";
 import studio from "../../../assets/booking/studio.jpeg";
 import Modal from "../Widgets/Modal";
@@ -89,7 +89,6 @@ const Services: React.FC<ServiceProps> = ({setCurrentStep}) => {
 
   const handleSelectedService = (service: Service) => {
     setSelectedServices(service);
-    console.log(service);
     setCurrentStep(2);
   }
 
