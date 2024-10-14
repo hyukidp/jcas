@@ -87,8 +87,9 @@ const Services: React.FC<ServiceProps> = ({setCurrentStep}) => {
   }, []);
 
 
-  const handleSelcectedService = (service: Service) => {
+  const handleSelectedService = (service: Service) => {
     setSelectedServices(service);
+    console.log(service);
     setCurrentStep(2);
   }
 
@@ -128,7 +129,7 @@ const Services: React.FC<ServiceProps> = ({setCurrentStep}) => {
               <h1 className="roboto-bold text-brandBlack">₱{service.price}</h1>
             </div>
             <div className="flex flex-col mt-3">
-              <button onClick={() => handleSelcectedService(service)} className="w-full bg-brandBlue text-brandWhite py-2 mt-2 font-semibold rounded-lg">Select</button>
+              <button onClick={() => handleSelectedService(service)} className="w-full bg-brandBlue text-brandWhite py-2 mt-2 font-semibold rounded-lg">Select</button>
             </div>
           </div>
         ))}
