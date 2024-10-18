@@ -1,8 +1,9 @@
-import  React from "react";
+import  React, { useEffect } from "react";
 import { fadeIn } from "../../variants";
 import { motion } from 'framer-motion';
 import { useLocation } from "../../contexts/LocationContext";
 import { LocationInterface } from "../../interfaces/Location";
+import Cookies from 'js-cookie';
 
 //declare LocationProps Typescript to set setCurrentstep 
 interface LocationProps {
@@ -17,6 +18,13 @@ const Location: React.FC<LocationProps>= ({setCurrentStep, storelocations}) => {
     setSelectedLocation(location); //update the useLocation Context
     setCurrentStep(1);
   };
+
+  useEffect(() => {
+    const savedServices = Cookies.get("services");
+    const savedTotalPrice = Cookies.get("totalPrice");
+    console.log('x', savedServices, savedTotalPrice);
+  }, []);
+
 
   return (
     <div className="w-full flex flex-col">

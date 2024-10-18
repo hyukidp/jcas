@@ -6,6 +6,10 @@ import Payment from './Payment';
 import { LocationInterface } from '../../interfaces/Location';
 import bulacan from "../../assets/aboutmv.jpg";
 
+const storeKey:string = 'Zs6tc';
+const branchKey:string = 'Badminton';
+const baseUrl:string = 'https://bgsolutions.site/v2/';
+
 const storelocations: LocationInterface[] = [
   {
     id: 1,

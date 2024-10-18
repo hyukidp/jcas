@@ -6,6 +6,7 @@ import Home from './components/Home/Home';
 import Booking from './components/Booking/Booking';
 import { LocationProvider } from './contexts/LocationContext';
 import { ServiceProvider } from './contexts/ServiceContext';
+import { ScheduleProvider } from './contexts/ScheduleContext';
 
 const App = () => {
   return (
@@ -14,15 +15,17 @@ const App = () => {
         {/* Declare LocationProvider and wrapped the header to footer components */}
         <LocationProvider>
           <ServiceProvider>
-            <Header />
-            <main>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/Book" element={<Booking />} />
-              </Routes>
-            </main>
-            <Contact/>
-            <Footer />
+            <ScheduleProvider>
+              <Header />
+              <main>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/Book" element={<Booking />} />
+                </Routes>
+              </main>
+              <Contact/>
+              <Footer />
+            </ScheduleProvider>
           </ServiceProvider>
         </LocationProvider>
         {/* End of Location Provider */}

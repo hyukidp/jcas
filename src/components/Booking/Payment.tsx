@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "../../contexts/LocationContext";
 import { useService } from "../../contexts/ServiceContext";
 import { IoAddCircleOutline, IoRemoveCircleOutline } from "react-icons/io5";
+import Cookies from 'js-cookie';
 
 interface PaymentProps {
   setCurrentStep: (step: number) => void;
@@ -15,11 +16,33 @@ const Payment: React.FC<PaymentProps> = ({ setCurrentStep }) => {
     services.reduce((acc, service) => acc + service.price, 0)
   );
 
+  // Load cookies when the component mounts
+  useEffect(() => {
+    const savedServices = Cookies.get("services");
+    const savedTotalPrice = Cookies.get("totalPrice");
+    console.log('x');
+
+    if (savedServices) {
+      setServices(JSON.parse(savedServices));
+      setTotalPrice(Number(savedTotalPrice));
+    }
+  }, []);
+
+  // Save to cookies whenever services or totalPrice changes
+  useEffect(() => {
+    if (services.length > 0) {
+      Cookies.set("services", JSON.stringify(services), { expires: 7 });
+      Cookies.set("totalPrice", totalPrice, { expires: 7 });
+      console.log("Saved to cookies:", services, totalPrice);
+    }
+  }, [services, totalPrice]);
+
   // Add service button
   const handleAddService = () => {
     setCurrentStep(1);
   };
 
+  // Add hour and price to service
   const handleAddHour = (serviceId: number) => {
     const updatedServices = services.map((service) => {
       if (service.id === serviceId) {
@@ -40,6 +63,7 @@ const Payment: React.FC<PaymentProps> = ({ setCurrentStep }) => {
     });
   };
 
+  // Reduce hour
   const handleDecreaseHour = (serviceId: number) => {
     const updatedServices = services.map((service) => {
       if (service.id === serviceId && service.hour > 1) {
@@ -112,7 +136,7 @@ const Payment: React.FC<PaymentProps> = ({ setCurrentStep }) => {
                   </div>
                 </div>
               ))}
-              <div className="flex justify-between mt-4 border-t-2 border-brandBlack pt-2">
+              <div className="flex justify-between mt-4 border-t-2 border-brandBlack pt-2 mb-4">
                 <p className="roboto-bold text-xl">Total Price:</p>
                 <p className="roboto-bold text-xl">₱{totalPrice}</p>
               </div>
@@ -159,6 +183,7 @@ const Payment: React.FC<PaymentProps> = ({ setCurrentStep }) => {
             <button className="roboto-regular text-brandWhite bg-brandGreen py-2 w-full mt-3">Proceed</button>
           </div>
         </div>
+
       </div>
     </div>
   );
