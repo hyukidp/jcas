@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "../../contexts/LocationContext";
 import { useService } from "../../contexts/ServiceContext";
+import { useSchedule } from "../../contexts/ScheduleContext";
 import { IoAddCircleOutline, IoRemoveCircleOutline } from "react-icons/io5";
+import { MdDateRange } from "react-icons/md";
+import { BiTimeFive } from "react-icons/bi";
+import { PiCourtBasketballBold } from "react-icons/pi";
 import Cookies from 'js-cookie';
 
 interface PaymentProps {
@@ -11,6 +15,7 @@ interface PaymentProps {
 const Payment: React.FC<PaymentProps> = ({ setCurrentStep }) => {
   const { selectedLocation } = useLocation();
   const { selectedServices } = useService();
+  const { selectedSchedule } = useSchedule();
   const [services, setServices] = useState(selectedServices);
   const [totalPrice, setTotalPrice] = useState(
     services.reduce((acc, service) => acc + service.price, 0)
@@ -114,6 +119,19 @@ const Payment: React.FC<PaymentProps> = ({ setCurrentStep }) => {
               {services.map((service) => (
                 <div key={service.id} className="mt-3">
                   <h1 className="roboto-bold text-base">{service.title}</h1>
+                  {selectedSchedule ? (
+                    <div className="pl-3 mt-1">
+                      <p className="roboto-regular text-base mt-1"><MdDateRange className="inline-block mr-3 size-6"/>
+                      Date: {selectedSchedule.time}</p>
+                      <p className="roboto-regular text-base mt-1"><BiTimeFive className="inline-block mr-3 size-6"/>
+                      Time: {selectedSchedule.time}</p>
+                      <p className="roboto-regular text-base mt-1"><PiCourtBasketballBold className="inline-block mr-3 size-6"/>
+                      Court: {selectedSchedule.court}</p>
+                    </div>
+                  ) : (
+                    <p className="pl-3 mt-1 text-sm">No schedule selected.</p>
+                  )}
+
                   <div className="flex justify-between pl-3">
                     <p className="roboto-regular text-base mt-1">{service.hour} hour(s)</p>
                     <p className="roboto-regular text-base">₱{service.price}</p>

@@ -15,8 +15,17 @@ const Date: React.FC<DateProps> = ({ setCurrentStep }) => {
   const { setSelectedSchedule } = useSchedule();
 
   const handleSelect = () => {
-    setCurrentStep(4)
-  }
+    if (selectedDate && selectedTimeSlot && selectedCourt ) {
+      const schedule: Schedule = {
+        date: selectedDate,
+        time: selectedTimeSlot,
+        court: selectedCourt,
+      };
+
+      setSelectedSchedule(schedule);
+      setCurrentStep(3);
+    }
+  };
 
   const generateTimeSlots = (date: Date) => {
     const day = date.getDay();
