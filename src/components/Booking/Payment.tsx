@@ -3,17 +3,19 @@ import { useLocation } from "../../contexts/LocationContext";
 import { useService } from "../../contexts/ServiceContext";
 import { useSchedule } from "../../contexts/ScheduleContext";
 import { IoAddCircleOutline, IoRemoveCircleOutline } from "react-icons/io5";
+import Cookies from 'js-cookie';
 import { MdDateRange } from "react-icons/md";
 import { BiTimeFive } from "react-icons/bi";
 import { PiCourtBasketballBold } from "react-icons/pi";
-import Cookies from 'js-cookie';
+import { MdOutlineDeleteForever } from "react-icons/md";
+
 
 interface PaymentProps {
   setCurrentStep: (step: number) => void;
 }
 
 const Payment: React.FC<PaymentProps> = ({ setCurrentStep }) => {
-  const { selectedLocation } = useLocation();
+  const { selectedLocation, setSelectedLocation } = useLocation();
   const { selectedServices } = useService();
   const { selectedSchedule } = useSchedule();
   const [services, setServices] = useState(selectedServices);
@@ -23,15 +25,27 @@ const Payment: React.FC<PaymentProps> = ({ setCurrentStep }) => {
 
   // Load cookies when the component mounts
   useEffect(() => {
+    const savedLocation = Cookies.get("selectedLocation");
     const savedServices = Cookies.get("services");
     const savedTotalPrice = Cookies.get("totalPrice");
-    console.log('x');
+
+    if (savedLocation) {
+      const location = JSON.parse(savedLocation);
+      setSelectedLocation(location);
+    }
 
     if (savedServices) {
       setServices(JSON.parse(savedServices));
       setTotalPrice(Number(savedTotalPrice));
     }
-  }, []);
+  }, [setSelectedLocation]);
+
+  // Save to cookies whenever location changes
+  useEffect(() => {
+    if (selectedLocation) {
+      Cookies.set("selectedLocation", JSON.stringify(selectedLocation), { expires: 7 });
+    }
+  }, [selectedLocation]);
 
   // Save to cookies whenever services or totalPrice changes
   useEffect(() => {
@@ -45,6 +59,18 @@ const Payment: React.FC<PaymentProps> = ({ setCurrentStep }) => {
   // Add service button
   const handleAddService = () => {
     setCurrentStep(1);
+  };
+
+  // Remove service
+  const handleRemoveService = (serviceId:number) => {
+    const serviceToRemove = services.find((service) => service.id === serviceId);
+
+    if (serviceToRemove) {
+      const updatedServices = services.filter((service) => service.id !== serviceId);
+      setServices(updatedServices);
+
+      setTotalPrice((prevPrice) => prevPrice - serviceToRemove.price);
+    }
   };
 
   // Add hour and price to service
@@ -119,30 +145,25 @@ const Payment: React.FC<PaymentProps> = ({ setCurrentStep }) => {
               {services.map((service) => (
                 <div key={service.id} className="mt-3">
                   <h1 className="roboto-bold text-base">{service.title}</h1>
-                  {selectedSchedule ? (
-                    <div className="pl-3 mt-1">
-                      <p className="roboto-regular text-base mt-1"><MdDateRange className="inline-block mr-3 size-6"/>
-                      Date: {selectedSchedule.time}</p>
-                      <p className="roboto-regular text-base mt-1"><BiTimeFive className="inline-block mr-3 size-6"/>
-                      Time: {selectedSchedule.time}</p>
-                      <p className="roboto-regular text-base mt-1"><PiCourtBasketballBold className="inline-block mr-3 size-6"/>
-                      Court: {selectedSchedule.court}</p>
-                    </div>
-                  ) : (
-                    <p className="pl-3 mt-1 text-sm">No schedule selected.</p>
-                  )}
-
                   <div className="flex justify-between pl-3">
                     <p className="roboto-regular text-base mt-1">{service.hour} hour(s)</p>
                     <p className="roboto-regular text-base">₱{service.price}</p>
                   </div>
                   <div className="flex flex-col items-start">
+                    <div className="w-full flex justify-between">
                     <button
                       onClick={() => handleAddHour(service.id)}
                       className="text-slate-600 py-1 roboto-regular text-sm pl-3">
                       <IoAddCircleOutline className="inline mr-1 size-4"/>
                       Add Hour (₱{service.id === 1 ? "300" : "1000"})
                     </button>
+                    <button 
+                      onClick={() => handleRemoveService(service.id)}
+                      className="text-slate-600 py-1 roboto-regular text-sm pl-3">
+                      <MdOutlineDeleteForever className="inline mr-1 size-5" />
+                      Remove
+                    </button>
+                    </div>
                     {service.hour > 1 && (
                       <button
                         onClick={() => handleDecreaseHour(service.id)}
@@ -160,7 +181,7 @@ const Payment: React.FC<PaymentProps> = ({ setCurrentStep }) => {
               </div>
             </div>
           ) : (
-            <p>No services selected.</p>
+            <p className="mt-5">No services selected.</p>
           )}
 
           <button onClick={handleAddService} className="w-full bg-brandYellow text-brandBlack py-2 roboto-regular mt-auto">Add service</button>

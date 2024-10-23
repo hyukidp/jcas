@@ -3,6 +3,7 @@ import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
 import { useSchedule } from "../../contexts/ScheduleContext";
 import { Schedule } from "../../interfaces/Schedule";
+import { useService } from "../../contexts/ServiceContext";
 
 interface DateProps {
   setCurrentStep: (step: number) => void;
@@ -12,6 +13,7 @@ const Date: React.FC<DateProps> = ({ setCurrentStep }) => {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | undefined>(undefined);
   const [selectedCourt, setSelectedCourt] = useState<number | undefined>(undefined);
+  const { selectedServices } = useService();
   const { setSelectedSchedule } = useSchedule();
 
   const handleSelect = () => {
@@ -23,6 +25,7 @@ const Date: React.FC<DateProps> = ({ setCurrentStep }) => {
       };
 
       setSelectedSchedule(schedule);
+      console.log(schedule);
       setCurrentStep(3);
     }
   };

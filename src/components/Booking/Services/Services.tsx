@@ -2,11 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import court from "../../../assets/booking/court.png";
 import studio from "../../../assets/booking/studio.jpeg";
 import Modal from "../Widgets/Modal";
-import { Service } from "../../../interfaces/Service"
+import { Service } from "../../../interfaces/Service";
 import { fadeIn } from "../../../variants";
 import { motion } from 'framer-motion';
-import { useLocation } from "../../../contexts/LocationContext";
-import { useService } from "../../../contexts/ServiceContext"
+import { useService } from "../../../contexts/ServiceContext";
 
 interface ServiceProps {
   setCurrentStep: (step: number) => void; // Specify the function type
@@ -18,10 +17,8 @@ const Services: React.FC<ServiceProps> = ({setCurrentStep}) => {
   const courtRef = useRef<HTMLParagraphElement | null>(null);
   const studioRef = useRef<HTMLParagraphElement | null>(null);
   const charLimit = 119;
-  const { selectedServices, setSelectedServices } = useService();
-  const { selectedLocation } = useLocation(); //declare the locationContext to display selected location
+  const { setSelectedServices } = useService();
 
-  
   // Service Data
   const services:Service[] = [
     {
@@ -32,6 +29,11 @@ const Services: React.FC<ServiceProps> = ({setCurrentStep}) => {
       note: "Our rate includes a PHP 15.00 online processing fee.",
       price: 320.00,
       img: court,
+      schedule: { 
+        date: new Date(), 
+        time: "8:00 AM - 9:00 AM", 
+        court: 1,
+      }
     },
     {
       id: 2,
@@ -41,6 +43,11 @@ const Services: React.FC<ServiceProps> = ({setCurrentStep}) => {
       note: "Our rate includes a PHP 15.00 online processing fee and excludes air conditioning and miscellaneous equipment usage.",
       price: 1015.00,
       img: studio,
+      schedule: { 
+        date: new Date(), 
+        time: "8:00 AM - 9:00 AM", 
+        court: 1,
+      }
     },
   ];
 
@@ -94,12 +101,6 @@ const Services: React.FC<ServiceProps> = ({setCurrentStep}) => {
 
   return (
     <div className="w-full flex flex-col xl:px-20">
-
-      {/* {selectedLocation ? (
-        <p>Service available in {selectedLocation.name}</p>
-      ) : (
-        <p>Please select a location to see available services.</p>
-      )} */}
       
       <motion.div
       variants={fadeIn("up", 0.2)}

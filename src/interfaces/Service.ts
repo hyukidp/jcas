@@ -6,5 +6,6 @@ export interface Service {
     note: string;
     description: string;
     img: string;
+    schedule: any;
 }
   

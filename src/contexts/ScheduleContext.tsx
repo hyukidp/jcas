@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { Schedule } from '../interfaces/Schedule';
 
 interface ScheduleContextType {
-    selectedSchedule: Schedule | null;
+    selectedSchedule: Schedule[];
     setSelectedSchedule: (schedule: Schedule) => void;
   }
 
@@ -21,7 +21,7 @@ interface ScheduleProviderProps {
   }
 
 export const ScheduleProvider: React.FC<ScheduleProviderProps> = ({ children }) => {
-    const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(null); //useState for the selectedLocation
+    const [selectedSchedule, setSelectedSchedule] = useState<Schedule[]>([]); //useState for the selectedLocation
   
     return (
       <ScheduleContext.Provider value={{ selectedSchedule, setSelectedSchedule }}>
