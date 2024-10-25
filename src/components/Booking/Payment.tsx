@@ -52,7 +52,6 @@ const Payment: React.FC<PaymentProps> = ({ setCurrentStep }) => {
     if (services.length > 0) {
       Cookies.set("services", JSON.stringify(services), { expires: 7 });
       Cookies.set("totalPrice", totalPrice, { expires: 7 });
-      console.log("Saved to cookies:", services, totalPrice);
     }
   }, [services, totalPrice]);
 
@@ -71,6 +70,8 @@ const Payment: React.FC<PaymentProps> = ({ setCurrentStep }) => {
 
       setTotalPrice((prevPrice) => prevPrice - serviceToRemove.price);
     }
+
+    Cookies.remove("services");
   };
 
   // Add hour and price to service
